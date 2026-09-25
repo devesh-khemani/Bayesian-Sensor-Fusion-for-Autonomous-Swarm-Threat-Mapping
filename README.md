@@ -2,15 +2,15 @@
 
 **[View Implementation Notebook](./swarm_project.ipynb)**
 
-> **Project Status:** The core Bayesian sensor-fusion mathematics — likelihood modelling, distance-scaled uncertainty, and multi-sensor posterior fusion — is implemented and verified. Multi-drone coordination and dynamic pathfinding were intentionally left unimplemented as a defined scoping decision, not an oversight (see [Why this stopped here](#why-this-stopped-here) below).
+> **Project Status:** The core Bayesian sensor-fusion mathematics - likelihood modelling, distance-scaled uncertainty, and multi-sensor posterior fusion - is implemented and verified. Multi-drone coordination and dynamic pathfinding were intentionally left unimplemented as a defined scoping decision, not an oversight (see [Why this stopped here](#why-this-stopped-here) below).
 
-This project was written in 2023–24 alongside independent research into swarm robotics and Lethal Autonomous Weapons Systems (LAWS) for my EPQ. It is an exploratory simulation testing how an autonomous agent should combine two independent, imperfect sensor channels into a single calibrated probability estimate — and how that estimate should degrade realistically with range and sensor noise. It is shared for transparency on the technical approach and mathematical mechanics behind that research, rather than as a production deployment.
+This project was written in 2023–24 alongside independent research into swarm robotics and Lethal Autonomous Weapons Systems (LAWS) for my EPQ. It is an exploratory simulation testing how an autonomous agent should combine two independent, imperfect sensor channels into a single calibrated probability estimate - and how that estimate should degrade realistically with range and sensor noise. It is shared for transparency on the technical approach and mathematical mechanics behind that research, rather than as a production deployment.
 
 ---
 
 ## Motivation
 
-My EPQ examined the technical limitations of AI-enabled swarm robotics and LAWS — specifically sensor reliability under environmental degradation, adversarial spoofing, and data drift, and how sensor fusion affects target-tracking reliability in contested environments. 
+My EPQ examined the technical limitations of AI-enabled swarm robotics and LAWS - specifically sensor reliability under environmental degradation, adversarial spoofing, and data drift, and how sensor fusion affects target-tracking reliability in contested environments. 
 
 This notebook serves as the technical counterpart to that research: rather than reasoning about sensor fusion solely at an abstract policy or systems level, I constructed a simulation from first principles to test how an agent should fuse two noisy, independent observation channels (a thermal signature reading and an optical/visual detection score) into a joint belief state that properly scales with distance-dependent sensor attenuation.
 
@@ -57,7 +57,7 @@ $$P(\text{no target}) = 1 - P(\text{target})$$
 
 ## Why This Approach
 
-Single-sensor detection is inherently fragile — thermal sensors trigger false positives on heat artifacts, while computer vision channels are susceptible to occlusions, poor illumination, or adversarial spoofing. 
+Single-sensor detection is inherently fragile - thermal sensors trigger false positives on heat artifacts, while computer vision channels are susceptible to occlusions, poor illumination, or adversarial spoofing. 
 
 Fusing two independent, differently-failing sensors via Bayesian updating is an established approach for robust target identification in contested environments. Explicitly modelling uncertainty as a function of range ensures that spatial confidence matches real-world physical limits. Implementing these mechanics from first principles using NumPy rather than high-level libraries verified the mathematical stability and edge-case behavior directly.
 
